@@ -16,7 +16,7 @@ use Yii;
  */
 class Brand extends \yii\db\ActiveRecord
 {
-    public $imgFile;
+//    public $imgFile;
 
     public static function tableName()
     {
