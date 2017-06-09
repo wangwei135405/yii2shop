@@ -3,6 +3,7 @@ namespace backend\components;
 
 use yii\base\Component;
 use yii\web\HttpException;
+
 class Qiniu extends Component {
     public $up_host = 'http://up-z2.qiniu.com';
     const RS_HOST = 'http://rs.qbox.me';
@@ -13,13 +14,13 @@ class Qiniu extends Component {
     public $bucket;
     public $domain;
 
-//    function __construct($accessKey, $secretKey, $domain, $bucket = '')
-//    {
-//        $this->accessKey = $accessKey;
-//        $this->secretKey = $secretKey;
-//        $this->domain = $domain;
-//        $this->bucket = $bucket;
-//    }
+    /*function __construct($accessKey, $secretKey, $domain, $bucket = '')
+    {
+        $this->accessKey = $accessKey;
+        $this->secretKey = $secretKey;
+        $this->domain = $domain;
+        $this->bucket = $bucket;
+    }*/
 
     /**
      * 通过本地文件上传
@@ -287,7 +288,7 @@ class Qiniu extends Component {
         return json_decode($text, true);
     }
 
-//    public function __destruct()
-//    {
-//    }
+    /*public function __destruct()
+    {
+    }*/
 }

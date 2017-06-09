@@ -79,11 +79,11 @@ class BrandController extends \yii\web\Controller
                 //END METHOD
                 //BEGIN CLOSURE BY-HASH
                 'overwriteIfExist' => true,
-//                'format' => function (UploadAction $action) {
-//                    $fileext = $action->uploadfile->getExtension();
-//                    $filename = sha1_file($action->uploadfile->tempName);
-//                    return "{$filename}.{$fileext}";
-//                },
+                /*'format' => function (UploadAction $action) {
+                    $fileext = $action->uploadfile->getExtension();
+                    $filename = sha1_file($action->uploadfile->tempName);
+                    return "{$filename}.{$fileext}";
+                },*/
                 //END CLOSURE BY-HASH
                 //BEGIN CLOSURE BY TIME
                 'format' => function (UploadAction $action) {
@@ -95,7 +95,7 @@ class BrandController extends \yii\web\Controller
                 },
                 //END CLOSURE BY TIME
                 'validateOptions' => [
-                    'extensions' => ['jpg', 'png','gif'],
+                    'extensions' => ['jpg', 'png'],
                     'maxSize' => 1 * 1024 * 1024, //file size
                 ],
                 'beforeValidate' => function (UploadAction $action) {
@@ -104,17 +104,17 @@ class BrandController extends \yii\web\Controller
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
-                    //$imgUrl = $action->getWebUrl();
-                    $action->output['fileUrl'] = $action->getWebUrl();
-                   //调用七牛云组件，将图片上传到七牛云
-                    //$qiniu = \Yii::$app->qiniu;
-                    //$qiniu ->uploadFile(\Yii::getAlias('@webroot').$imgUrl,$imgUrl);
-                   //获取该图片七牛云地址
-                    //$url = $qiniu->getLink($imgUrl);
-                    //$action->output['fileUrl']=$url;
-                    $action->getFilename(); // "image/yyyymmddtimerand.jpg"
-                    $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
-                    $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
+                    $imgUrl = $action->getWebUrl();
+//                    $action->output['fileUrl'] = $action->getWebUrl();
+                    //调用七牛云组件，将图片上传到七牛云
+                    $qiniu = \Yii::$app->Qiniu;
+                    $qiniu->uploadFile(\Yii::getAlias('@webroot').$imgUrl,$imgUrl);
+                    //获取该图片在七牛云的地址
+                    $url = $qiniu->getLink($imgUrl);
+                    $action->output['fileUrl'] = $url;
+//                    $action->getFilename(); // "image/yyyymmddtimerand.jpg"
+//                    $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
+//                    $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
                 },
             ],
         ];
@@ -126,7 +126,7 @@ class BrandController extends \yii\web\Controller
             $sk = 'ntL9PF5aYOBhBwSOWFs2gAwDNbfHfYSxKjFwOZ1k';
             $domain = 'http://or9raiigq.bkt.clouddn.com/';
             $bucket = 'wangwei';
-            $qiniu = new Qiniu($ak, $sk,$domain, $bucket);
+            $qiniu = new Qiniu($ak, $sk,$domain, $bucket);//new Qiniu($ak, $sk,$domain, $bucket);
             $fileName = \Yii::getAlias('@webroot').'/upload/04.jpg';
             $key = '04.jpg';
             $qiniu->uploadFile($fileName,$key);
