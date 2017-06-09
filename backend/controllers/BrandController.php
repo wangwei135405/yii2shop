@@ -6,6 +6,7 @@ use backend\models\Brand;
 use yii\web\Request;
 use yii\web\UploadedFile;
 use xj\uploadify\UploadAction;
+use crazyfd\qiniu\Qiniu;
 
 class BrandController extends \yii\web\Controller
 {
@@ -48,13 +49,13 @@ class BrandController extends \yii\web\Controller
         $request = new Request();
         if($request->isPost){
             $model->load($request->post());
-            $model->imgFile=UploadedFile::getInstance($model,'imgFile');
+//            $model->imgFile=UploadedFile::getInstance($model,'imgFile');
             if($model->validate()){
-                if($model->imgFile){
-                    $fileName = '/images/brand/'.uniqid().'.'.$model->imgFile->extension;
-                    $model->imgFile->saveAs(\Yii::getAlias('@webroot').$fileName,false);
-                    $model->logo=$fileName;
-                }
+//                if($model->imgFile){
+//                    $fileName = '/images/brand/'.uniqid().'.'.$model->imgFile->extension;
+//                    $model->imgFile->saveAs(\Yii::getAlias('@webroot').$fileName,false);
+//                    $model->logo=$fileName;
+//                }
                 $model->save();
                 \Yii::$app->session->setFlash('success','修改成功');
                 return $this->redirect(['brand/index']);
@@ -94,7 +95,7 @@ class BrandController extends \yii\web\Controller
                 },
                 //END CLOSURE BY TIME
                 'validateOptions' => [
-                    'extensions' => ['jpg', 'png'],
+                    'extensions' => ['jpg', 'png','gif'],
                     'maxSize' => 1 * 1024 * 1024, //file size
                 ],
                 'beforeValidate' => function (UploadAction $action) {
@@ -103,13 +104,33 @@ class BrandController extends \yii\web\Controller
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
+                    //$imgUrl = $action->getWebUrl();
                     $action->output['fileUrl'] = $action->getWebUrl();
+                   //调用七牛云组件，将图片上传到七牛云
+                    //$qiniu = \Yii::$app->qiniu;
+                    //$qiniu ->uploadFile(\Yii::getAlias('@webroot').$imgUrl,$imgUrl);
+                   //获取该图片七牛云地址
+                    //$url = $qiniu->getLink($imgUrl);
+                    //$action->output['fileUrl']=$url;
                     $action->getFilename(); // "image/yyyymmddtimerand.jpg"
                     $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
                     $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
                 },
             ],
         ];
+    }
+
+    public function actionTest()
+    {
+            $ak = 'xHVnbogsq85xatNfjQHcuwFHMIMxeNa8Rwf9CpyC';
+            $sk = 'ntL9PF5aYOBhBwSOWFs2gAwDNbfHfYSxKjFwOZ1k';
+            $domain = 'http://or9raiigq.bkt.clouddn.com/';
+            $bucket = 'wangwei';
+            $qiniu = new Qiniu($ak, $sk,$domain, $bucket);
+            $fileName = \Yii::getAlias('@webroot').'/upload/04.jpg';
+            $key = '04.jpg';
+            $qiniu->uploadFile($fileName,$key);
+            $url = $qiniu->getLink($key);
     }
 
 }
