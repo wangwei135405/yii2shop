@@ -53,4 +53,12 @@ class Article extends \yii\db\ActiveRecord
             'create_time' => '创建时间',
         ];
     }
+
+    public function cate_id(){
+        return ArrayHelper::map(ArticleCategory::find()->where(['status'=>1])->asArray()->all(),'id','name');
+    }
+    public function getCategory()
+    {
+        return $this->hasOne(ArticleCategory::className(),['id'=>'article_category_id']);
+    }
 }

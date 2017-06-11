@@ -16,6 +16,7 @@ use Yii;
  */
 class Articlecategory extends \yii\db\ActiveRecord
 {
+    public static $status_option;
     /**
      * @inheritdoc
      */

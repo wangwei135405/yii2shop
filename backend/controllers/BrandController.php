@@ -95,7 +95,7 @@ class BrandController extends \yii\web\Controller
                 },
                 //END CLOSURE BY TIME
                 'validateOptions' => [
-                    'extensions' => ['jpg', 'png'],
+                    'extensions' => ['jpg', 'png','gif'],
                     'maxSize' => 1 * 1024 * 1024, //file size
                 ],
                 'beforeValidate' => function (UploadAction $action) {
