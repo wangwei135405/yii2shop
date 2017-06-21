@@ -2,51 +2,31 @@
 
 namespace backend\controllers;
 
-use backend\models\Articlecategory;
-use yii\web\Request;
+
+use backend\models\ArticleCategory;
 
 
-class ArticlecategoryController extends \yii\web\Controller
+class ArticleCategoryController extends \yii\web\Controller
 {
+    /*
+     * 文章分类列表
+     */
     public function actionIndex()
     {
-        $article = Articlecategory::find()->all();
-        return $this->render('index',['article'=>$article]);
+        $models = ArticleCategory::find()->all();
+        return $this->render('index',['models'=>$models]);
     }
+
+
     public function actionAdd()
     {
-        $model = new Articlecategory();
-        $request = new Request();
-        if($request->isPost){
-            $model->load($request->post());
-            if($model->validate()){
-                $model->save();
-                return $this->redirect(['articlecategory/index']);
-            }else{
-                var_dump($model->getErrors());exit;
-            }
+        $model = new ArticleCategory();
+        if($model->load(\Yii::$app->request->post()) && $model->save()){
+            \Yii::$app->session->setFlash('文章分类添加成功');
+            return $this->redirect(['index']);
         }
         return $this->render('add',['model'=>$model]);
     }
-    public function actionDel($id)
-    {
-        $model = Articlecategory::findOne(['id'=>$id]);
-        $model->delete($id);
-        return $this->redirect(['articlecategory/index']);
-    }
-    public function actionEdit($id)
-    {
-        $model = Articlecategory::findOne(['id'=>$id]);
-        $request = new Request();
-        if($request->isPost){
-            $model->load($request->post());
-            if($model->validate()){
-                $model->save();
-                return $this->redirect(['articlecategory/index']);
-            }else{
-                var_dump($model->getErrors());exit;
-            }
-        }
-        return $this->render('add',['model'=>$model]);
-    }
+
 }
+

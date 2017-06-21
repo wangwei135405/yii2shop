@@ -1,10 +1,10 @@
-<?php
-$form = \yii\widgets\ActiveForm::begin();
-echo $form->field($model,'name');
-echo $form->field($model,'intro')->textarea();
-echo $form->field($model,'article_category_id')->dropDownList(\backend\models\Article::cate_id(),['prompt'=>'=请选择分类=']);
-echo $form->field($model,'sort');
-echo $form->field($model,'status')->radioList(['1'=>'正常','0'=>'隐藏']);
-echo $form->field($model,'create_time');
+<?php $form = \yii\bootstrap\ActiveForm::begin();
+echo $form->field($article,'name');
+echo $form->field($article,'article_category_id')->dropDownList(\backend\models\Article::getCategoryOptions(),['prompt'=>'=请选择分类=']);
+echo $form->field($article,'intro')->textarea();
+echo $form->field($article,'status')->radioList(\backend\models\Article::$status_options);
+echo $form->field($article,'sort');
+
+echo $form->field($article_detail,'content')->textarea();
 echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
-\yii\widgets\ActiveForm::end();
+\yii\bootstrap\ActiveForm::end();

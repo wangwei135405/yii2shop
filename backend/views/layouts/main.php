@@ -28,26 +28,31 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => '商城管理后台',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => '首页', 'url' => ['user/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '登录', 'url' => Yii::$app->user->loginUrl];
+
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        $menus = \backend\models\Menu::findAll(['parent_id'=>0]);
+        foreach ($menus as $menu){
+            $item = ['label'=>$menu->label,'items'=>[]];
+            foreach ($menu->children as $child){
+                if(Yii::$app->user->can($child->url)) {
+                    $item['items'][] = ['label' => $child->label, 'url' => [$child->url]];
+                }
+            }
+            $menuItems[]=$item;
+        }
+        $menuItems[] = ['label' => '注销', 'url' => ['user/loginout']];
+
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

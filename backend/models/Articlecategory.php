@@ -5,24 +5,25 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "articlecategory".
+ * This is the model class for table "article_category".
  *
  * @property integer $id
  * @property string $name
  * @property string $intro
- * @property integer $sort
  * @property integer $status
+ * @property integer $sort
  * @property integer $is_help
  */
-class Articlecategory extends \yii\db\ActiveRecord
+class ArticleCategory extends \yii\db\ActiveRecord
 {
-    public static $status_option;
+    public static $status_options = [1=>'是',0=>'否'];
+    public static $is_help_options = [1=>'帮助',0=>'快讯'];
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'articlecategory';
+        return 'article_category';
     }
 
     /**
@@ -31,10 +32,11 @@ class Articlecategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'sort', 'status', 'is_help'], 'required'],
+            [['name', 'status', 'sort', 'is_help'], 'required'],
             [['intro'], 'string'],
-            [['sort', 'status', 'is_help'], 'integer'],
+            [['status', 'sort', 'is_help'], 'integer'],
             [['name'], 'string', 'max' => 50],
+            [['name'], 'unique','message'=>'分类已存在'],//分类名称不能重复
         ];
     }
 
@@ -45,10 +47,10 @@ class Articlecategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => '文章分类名',
+            'name' => '名称',
             'intro' => '简介',
+            'status' => '启用',
             'sort' => '排序',
-            'status' => '状态',
             'is_help' => '类型',
         ];
     }
