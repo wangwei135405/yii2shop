@@ -10,7 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-\frontend\assets\LoginAsset::register($this);
+\frontend\assets\Flow1Asset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -39,16 +39,6 @@ use common\widgets\Alert;
     </div>
 </div>
 <!-- 顶部导航 end -->
-<div style="clear:both;"></div>
-
-<!-- 页面头部 start -->
-<div class="header w990 bc mt15">
-    <div class="logo w990">
-        <h2 class="fl"><a href="index.html"><?=\yii\helpers\Html::img('@web/images/logo.png')?></a></h2>
-    </div>
-</div>
-<!-- 页面头部 end -->
-
 <?=$content?>
 
 <div style="clear:both;"></div>

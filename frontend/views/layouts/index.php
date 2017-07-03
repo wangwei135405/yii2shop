@@ -1,8 +1,4 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -10,7 +6,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-\frontend\assets\LoginAsset::register($this);
+\frontend\assets\IndexAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,9 +19,12 @@ use common\widgets\Alert;
 </head>
 <body>
 <?php $this->beginBody() ?>
+<body>
+<!-- 顶部导航 start -->
 <div class="topnav">
-    <div class="topnav_bd w990 bc">
+    <div class="topnav_bd w1210 bc">
         <div class="topnav_left">
+
         </div>
         <div class="topnav_right fr">
             <ul>
@@ -34,26 +33,22 @@ use common\widgets\Alert;
                 <li>我的订单</li>
                 <li class="line">|</li>
                 <li>客户服务</li>
+
             </ul>
         </div>
     </div>
 </div>
 <!-- 顶部导航 end -->
-<div style="clear:both;"></div>
 
-<!-- 页面头部 start -->
-<div class="header w990 bc mt15">
-    <div class="logo w990">
-        <h2 class="fl"><a href="index.html"><?=\yii\helpers\Html::img('@web/images/logo.png')?></a></h2>
-    </div>
-</div>
-<!-- 页面头部 end -->
+
+
 
 <?=$content?>
 
 <div style="clear:both;"></div>
+<div style="clear:both;"></div>
 <!-- 底部版权 start -->
-<div class="footer w1210 bc mt15">
+<div class="footer w1210 bc mt10">
     <p class="links">
         <a href="">关于我们</a> |
         <a href="">联系我们</a> |
@@ -77,9 +72,13 @@ use common\widgets\Alert;
         <a href=""><?=\yii\helpers\Html::img('@web/images/beian.gif')?></a>
     </p>
 </div>
-<!--底部版权 end-->
+<!-- 底部版权 end -->
+</body>
+</html>
 
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
+
+

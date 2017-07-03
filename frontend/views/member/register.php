@@ -26,7 +26,7 @@
                 echo $form->field($model,'tel')->textInput(['class'=>'txt']);
                 echo $form->field($model,'code',['options'=>['class'=>'checkcode']])->widget(\yii\captcha\Captcha::className(),['template'=>'{input} {image}']);
                 echo '<label for="">&nbsp;</label>
-					<input type="submit" value="" class="login_btn" />';
+					<input type="submit" value="" class="login_btn"/>';
                 echo '</ul>';
 
 

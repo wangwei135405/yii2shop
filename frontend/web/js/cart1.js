@@ -1,11 +1,11 @@
 /*
-@功能：购物车页面js
-@作者：diamondwang
-@时间：2013年11月14日
-*/
+ @功能：购物车页面js
+ @作者：diamondwang
+ @时间：2013年11月14日
+ */
 
 $(function(){
-	
+
 	//减少
 	$(".reduce_num").click(function(){
 		var amount = $(this).parent().find(".amount");

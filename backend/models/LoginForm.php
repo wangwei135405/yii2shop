@@ -21,9 +21,11 @@ class LoginForm extends Model{
         return[
             [['username','password'],'required'],
             ['username','validateUsername'],
+            ['code','safe'],
             ['remember','boolean']
         ];
     }
+
     //自定义验证方法
     public function validateUsername(){
         $user = User::findOne(['username'=>$this->username]);

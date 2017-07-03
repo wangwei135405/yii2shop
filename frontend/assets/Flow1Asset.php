@@ -3,7 +3,7 @@ namespace frontend\assets;
 
 use yii\web\AssetBundle;
 
-class LoginAsset extends  AssetBundle
+class Flow1Asset extends  AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
@@ -11,14 +11,12 @@ class LoginAsset extends  AssetBundle
         'style/base.css',
         'style/global.css',
         'style/header.css',
-        'style/login.css',
+        'style/fillin.css',
         'style/footer.css',
 
     ];
     public $js = [
-        'js/header.js',
-        'js/index.js',
-
+        'js/cart2.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

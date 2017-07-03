@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\GoodsCategory;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -67,14 +68,12 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
+
     public function actionIndex()
     {
-        return $this->render('index');
+//        $this->layout='index';
+        $category = GoodsCategory::findAll(['parent_id'=>0]);
+        return $this->render('index',['category'=>$category]);
     }
 
     /**

@@ -8,24 +8,31 @@
 			<div class="login_form fl">
 				<form action="" method="post">
 					<ul>
-						<li>
-							<label for="">用户名：</label>
-							<input type="text" class="txt" name="username" />
-						</li>
-						<li>
-							<label for="">密码：</label>
-							<input type="password" class="txt" name="password" />
-							<a href="">忘记密码?</a>
-						</li>
-						<li class="checkcode">
-							<label for="">验证码：</label>
-							<input type="text"  name="checkcode" />
-							<img src="images/checkcode1.jpg" alt="" />
-							<span>看不清？<a href="">换一张</a></span>
+						<?php
+						$form = \yii\widgets\ActiveForm::begin(
+							['fieldConfig'=>[
+								'options'=>[
+									'tag'=>'li',
+								],
+								'errorOptions'=>[
+									'tag'=>'p',
+								]
+							]]
+						);
+						echo $form->field($model,'username')->textInput(['class'=>'txt']);
+						echo $form->field($model,'password')->textInput(['class'=>'txt']);
+						echo $form->field($model,'code',['options'=>['class'=>'checkcode']])->widget(\yii\captcha\Captcha::className(),['template'=>'{input} {image}']);
+						\yii\widgets\ActiveForm::end();
+						?>
+						<!--						<li class="checkcode">-->
+<!--							<label for="">验证码：</label>-->
+<!--							<input type="text"  name="checkcode" />-->
+<!--							<img src="images/checkcode1.jpg" alt="" />-->
+<!--							<span>看不清？<a href="">换一张</a></span>-->
 						</li>
 						<li>
 							<label for="">&nbsp;</label>
-							<input type="checkbox" class="chb"  /> 保存登录信息
+							<input type="checkbox" class="chb" name="remember"/> 保存登录信息
 						</li>
 						<li>
 							<label for="">&nbsp;</label>
