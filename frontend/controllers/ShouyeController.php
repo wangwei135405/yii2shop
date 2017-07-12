@@ -297,10 +297,10 @@ class ShouyeController extends Controller
             $order->status = 1;
 //            //创建时间
             $order->create_time = time();
-            $order->save();
+//            $order->save();
             $trancaction = \Yii::$app->db->beginTransaction();
             try{
-//                $order->save();
+                $order->save();
                 //提交
                 $id = \Yii::$app->user->id;
                 $carts = Flow::find()->where(['member_id'=>$id])->all();
@@ -321,9 +321,9 @@ class ShouyeController extends Controller
                     $model->price = $cart->goodsinfo->shop_price;
                     $model->total = $cart->amount*$cart->goodsinfo->shop_price;
                     $model->order_id = $order->id;
-//                    $model->status = 1;
-                    $model->save(false);
+                    $model->save();
                 }
+
                 $trancaction->commit();
             }catch (Exception $e){
                 $trancaction->rollBack();
